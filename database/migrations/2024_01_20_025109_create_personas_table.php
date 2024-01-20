@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::create('personas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('idPersona');
+            $table->string('nombre');
+            $table->string('apelllido');
+            $table->string('dni');
+            $table->string('direccion');
         });
     }
 

@@ -14,8 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pagos', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('idPagos');
+            $table->double('monto');
+            $table->bigInteger('idMedioPago')->unsigned();            
+            $table->foreign('idMedioPago')->references('idMedioPago')->on('medio_pagos');
+            $table->bigInteger('idVenta')->unsigned();            
+            $table->foreign('idVenta')->references('idVenta')->on('ventas');
         });
     }
 

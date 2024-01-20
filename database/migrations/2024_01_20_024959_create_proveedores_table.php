@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('proveedors', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::create('proveedores', function (Blueprint $table) {
+            $table->bigIncrements('idProveedor');
+            $table->string('razonSocial');
         });
     }
 
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proveedors');
+        Schema::dropIfExists('proveedores');
     }
 };

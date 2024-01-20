@@ -14,8 +14,10 @@ return new class extends Migration
     public function up()
     {
         Schema::create('compras', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->bigIncrements('idCompra');
+            $table->date('fecha');
+            $table->bigInteger('idProveedor')->unsigned();            
+            $table->foreign('idProveedor')->references('idProveedor')->on('proveedores');
         });
     }
 
