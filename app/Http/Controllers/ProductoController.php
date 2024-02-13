@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Producto;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class ProductoController extends Controller
@@ -14,7 +15,9 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        //
+         $productos = Producto::all();
+
+        return view('producto.index',compact('productos'));
     }
 
     /**
@@ -24,7 +27,8 @@ class ProductoController extends Controller
      */
     public function create()
     {
-        //
+         $categorias = Categoria::all();
+         return view('producto.create',compact('categorias'));
     }
 
     /**
@@ -35,7 +39,15 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $producto = new Producto;
+        $producto->nombre = $request->get('nombre');
+        $producto->descripcion = $request->get('descripcion');
+        $producto->stockMinimo = $request->get('stockMinimo');
+        $producto->idCategoria = $request->get('categoria');
+        $producto->save();
+
+        return redirect('producto');
     }
 
     /**
@@ -44,9 +56,11 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function show(Producto $producto)
+    public function show($id)
     {
-        //
+         $producto = Producto::findOrFail($id);
+         
+         return view('producto.show',compact('producto'));
     }
 
     /**
@@ -55,9 +69,12 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
-        //
+         $producto = Producto::findOrFail($id);
+         $categorias = Categoria::all();
+
+        return view('producto.edit',compact('producto','categorias'));
     }
 
     /**
@@ -67,9 +84,17 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request,$id)
     {
-        //
+        
+        $producto = Producto::findOrFail($id);
+        $producto->nombre = $request->get('nombre');
+        $producto->descripcion = $request->get('descripcion');
+        $producto->stockMinimo = $request->get('stockMinimo');
+        $producto->idCategoria = $request->get('categoria');
+        $producto->update();
+
+        return redirect('producto');
     }
 
     /**
@@ -78,8 +103,11 @@ class ProductoController extends Controller
      * @param  \App\Models\Producto  $producto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+        $producto->delete();
+
+        return redirect('producto');
     }
 }

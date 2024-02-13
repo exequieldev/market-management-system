@@ -14,7 +14,9 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        $personas = Persona::all();
+
+        return view('persona.index',compact('personas'));
     }
 
     /**
@@ -24,7 +26,7 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        //
+        return view('persona.create');
     }
 
     /**
@@ -35,7 +37,14 @@ class PersonaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $persona = new Persona;
+        $persona->nombre = $request->get('nombre');
+        $persona->apellido = $request->get('apellido');
+        $persona->dni = $request->get('dni');
+        $persona->direccion = $request->get('direccion');
+        $persona->save();
+
+        return redirect('persona');
     }
 
     /**
@@ -55,9 +64,10 @@ class PersonaController extends Controller
      * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function edit(Persona $persona)
+    public function edit($id)
     {
-        //
+        $persona = Persona::findOrFail($id);
+        return view('persona.edit',compact('persona'));
     }
 
     /**
@@ -67,9 +77,16 @@ class PersonaController extends Controller
      * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Persona $persona)
+    public function update(Request $request,$id)
     {
-        //
+        $persona = Persona::findOrFail($id);
+        $persona->nombre = $request->get('nombre');
+        $persona->apellido = $request->get('apellido');
+        $persona->dni = $request->get('dni');
+        $persona->direccion = $request->get('direccion');
+        $persona->update();
+
+        return redirect('persona');
     }
 
     /**
@@ -78,8 +95,11 @@ class PersonaController extends Controller
      * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Persona $persona)
+    public function destroy($id)
     {
-        //
+        $personaa = Persona::findOrFail($id);
+        $personaa->delete();
+
+        return redirect('personaa');
     }
 }

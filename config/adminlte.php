@@ -311,12 +311,57 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
+        // [
+        //     'text'        => 'pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text' => 'Proveedor',
+            'url'  => 'proveedor',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Categoria',
+            'url'  => 'categoria',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Persona',
+            'url'  => 'persona',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Compra',
+            'url'  => 'compra',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Venta',
+            'url'  => 'venta',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Producto',
+            'url'  => 'producto',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'MedioPago',
+            'url'  => 'mediopago',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Pago',
+            'url'  => 'pago',
+            'icon' => 'fas fa-fw fa-user',
+        ],
+        [
+            'text' => 'Cuenta',
+            'url'  => 'cuenta',
+            'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'account_settings'],
         [

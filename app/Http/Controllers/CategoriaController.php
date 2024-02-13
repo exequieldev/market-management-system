@@ -14,7 +14,9 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        //
+        $categorias = Categoria::all();
+
+        return view('categoria.index',compact('categorias'));
     }
 
     /**
@@ -24,7 +26,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('categoria.create');
     }
 
     /**
@@ -35,7 +37,12 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $categoria = new Categoria;
+        $categoria->nombre = $request->get('nombre');
+        $categoria->descripcion = $request->get('descripcion');
+        $categoria->save();
+
+        return redirect('categoria');
     }
 
     /**
@@ -55,9 +62,11 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit(Categoria $categoria)
+    public function edit($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+
+        return view('categoria.edit',compact('categoria'));
     }
 
     /**
@@ -67,9 +76,14 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Categoria $categoria)
+    public function update(Request $request,$id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->nombre = $request->get('nombre');
+        $categoria->descripcion = $request->get('descripcion');
+        $categoria->update();
+
+        return redirect('categoria');
     }
 
     /**
@@ -78,8 +92,11 @@ class CategoriaController extends Controller
      * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Categoria $categoria)
+    public function destroy($id)
     {
-        //
+        $categoria = Categoria::findOrFail($id);
+        $categoria->delete();
+
+        return redirect('categoria');
     }
 }

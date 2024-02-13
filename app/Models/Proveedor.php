@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Proveedor extends Model
 {
     use HasFactory;
+
+    protected $table = 'proveedores';
+
+    protected $primaryKey = 'idProveedor';
+
+    protected $fillable = ['razonSocial'];
+
+    public $timestamps=false;
+
+    public function compras()
+    {
+        return $this->hasMany(Compra::class, 'idProveedor');
+    }
 }

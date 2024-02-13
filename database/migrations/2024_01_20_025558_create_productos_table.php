@@ -17,7 +17,7 @@ return new class extends Migration
             $table->bigIncrements('idProducto');
             $table->string('nombre');
             $table->text('descripcion');
-            $table->boolean('stockMinimos');
+            $table->boolean('stockMinimo');
             $table->bigInteger('idCategoria')->unsigned();            
             $table->foreign('idCategoria')->references('idCategoria')->on('categorias');
         });

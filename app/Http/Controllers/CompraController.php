@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Compra;
+use App\Models\LineaCompra;
+use App\Models\Producto;
+use App\Models\Proveedor;
 use Illuminate\Http\Request;
 
 class CompraController extends Controller
@@ -14,7 +17,9 @@ class CompraController extends Controller
      */
     public function index()
     {
-        //
+         $compras = Compra::all();
+
+        return view('compra.index',compact('compras'));
     }
 
     /**
@@ -24,7 +29,9 @@ class CompraController extends Controller
      */
     public function create()
     {
-        //
+         $productos = Producto::all();
+         $proveedores = Proveedor::all();
+         return view('compra.create',compact('productos','proveedores'));
     }
 
     /**
@@ -35,7 +42,19 @@ class CompraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $compra = new Compra;
+        $compra->fecha = $request->get('fecha');
+        $compra->ifProveedor = $request->get('proveedor');
+        $compra->save();
+
+
+        $lineaCompra = new LineaCompra;
+        $lineaCompra->cantidad = $request->get('cantidad');
+        $lineaCompra->precioUnitario = $request->get('precioUnitario');
+        $lineaCompra->idProducto = $request->get('producto');
+        $lineaCompra->idCompra = $compra->idCompra;
+
+        return redirect('compra');
     }
 
     /**
@@ -46,7 +65,7 @@ class CompraController extends Controller
      */
     public function show(Compra $compra)
     {
-        //
+         return view('compra.show');
     }
 
     /**
@@ -55,9 +74,11 @@ class CompraController extends Controller
      * @param  \App\Models\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function edit(Compra $compra)
+    public function edit($id)
     {
-        //
+         $compra = Compra::findOrFail($id);
+
+        return view('compra.edit',compact('compra'));
     }
 
     /**
@@ -67,9 +88,13 @@ class CompraController extends Controller
      * @param  \App\Models\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Compra $compra)
+    public function update(Request $request, $id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->razonSocial = $request->get('razonSocial');
+        $proveedor->update();
+
+        return redirect('proveedor');
     }
 
     /**
@@ -78,8 +103,11 @@ class CompraController extends Controller
      * @param  \App\Models\Compra  $compra
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Compra $compra)
+    public function destroy($id)
     {
-        //
+         $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
+
+        return redirect('proveedor');
     }
 }

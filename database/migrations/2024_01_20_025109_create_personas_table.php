@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->bigIncrements('idPersona');
             $table->string('nombre');
-            $table->string('apelllido');
+            $table->string('apellido');
             $table->string('dni');
             $table->string('direccion');
         });

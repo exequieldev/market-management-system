@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Proveedor;
 use Illuminate\Http\Request;
+use Ramsey\Uuid\Type\Integer;
 
 class ProveedorController extends Controller
 {
@@ -14,7 +15,9 @@ class ProveedorController extends Controller
      */
     public function index()
     {
-        //
+        $proveedores = Proveedor::all();
+
+        return view('proveedor.index',compact('proveedores'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ProveedorController extends Controller
      */
     public function create()
     {
-        //
+        return view('proveedor.create');
     }
 
     /**
@@ -35,7 +38,11 @@ class ProveedorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $proveedor = new Proveedor;
+        $proveedor->razonSocial = $request->get('razonSocial');
+        $proveedor->save();
+
+        return redirect('proveedor');
     }
 
     /**
@@ -46,7 +53,7 @@ class ProveedorController extends Controller
      */
     public function show(Proveedor $proveedor)
     {
-        //
+        return view('proveedor.show');
     }
 
     /**
@@ -55,9 +62,11 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proveedor $proveedor)
+    public function edit($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+
+        return view('proveedor.edit',compact('proveedor'));
     }
 
     /**
@@ -67,9 +76,13 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proveedor $proveedor)
+    public function update(Request $request,$id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->razonSocial = $request->get('razonSocial');
+        $proveedor->update();
+
+        return redirect('proveedor');
     }
 
     /**
@@ -78,8 +91,11 @@ class ProveedorController extends Controller
      * @param  \App\Models\Proveedor  $proveedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proveedor $proveedor)
+    public function destroy($id)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
+
+        return redirect('proveedor');
     }
 }

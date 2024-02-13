@@ -14,7 +14,9 @@ class MedioPagoController extends Controller
      */
     public function index()
     {
-        //
+         $mediopagos = MedioPago::all();
+
+        return view('mediopago.index',compact('mediopagos'));
     }
 
     /**
@@ -24,7 +26,7 @@ class MedioPagoController extends Controller
      */
     public function create()
     {
-        //
+         return view('mediopago.create');
     }
 
     /**
@@ -35,7 +37,12 @@ class MedioPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $mediopagos = new MedioPago();
+        $mediopagos->nombre = $request->get('nombre');
+        $mediopagos->descripcion = $request->get('descripcion');
+        $mediopagos->save();
+
+        return redirect('mediopago');
     }
 
     /**
@@ -46,7 +53,7 @@ class MedioPagoController extends Controller
      */
     public function show(MedioPago $medioPago)
     {
-        //
+         return view('mediopago.show');
     }
 
     /**
@@ -55,9 +62,11 @@ class MedioPagoController extends Controller
      * @param  \App\Models\MedioPago  $medioPago
      * @return \Illuminate\Http\Response
      */
-    public function edit(MedioPago $medioPago)
+    public function edit($id)
     {
-        //
+         $mediopago = MedioPago::findOrFail($id);
+
+        return view('mediopago.edit',compact('mediopago'));
     }
 
     /**
@@ -67,9 +76,14 @@ class MedioPagoController extends Controller
      * @param  \App\Models\MedioPago  $medioPago
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MedioPago $medioPago)
+    public function update(Request $request,$id)
     {
-        //
+        $mediopago = MedioPago::findOrFail($id);
+        $mediopago->nombre = $request->get('nombre');
+        $mediopago->descripcion = $request->get('descripcion');
+        $mediopago->update();
+
+        return redirect('mediopago');
     }
 
     /**
@@ -78,8 +92,11 @@ class MedioPagoController extends Controller
      * @param  \App\Models\MedioPago  $medioPago
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MedioPago $medioPago)
+    public function destroy($id)
     {
-        //
+        $mediopago = MedioPago::findOrFail($id);
+        $mediopago->delete();
+
+        return redirect('mediopago');
     }
 }

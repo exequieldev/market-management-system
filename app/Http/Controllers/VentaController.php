@@ -14,7 +14,9 @@ class VentaController extends Controller
      */
     public function index()
     {
-        //
+         $proveedores = Proveedor::all();
+
+        return view('proveedor.index',compact('proveedores'));
     }
 
     /**
@@ -24,7 +26,7 @@ class VentaController extends Controller
      */
     public function create()
     {
-        //
+         return view('proveedor.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class VentaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $proveedor = new Proveedor;
+        $proveedor->razonSocial = $request->get('razonSocial');
+        $proveedor->save();
+
+        return redirect('proveedor');
     }
 
     /**
@@ -46,7 +52,7 @@ class VentaController extends Controller
      */
     public function show(Venta $venta)
     {
-        //
+         return view('proveedor.show');
     }
 
     /**
@@ -57,7 +63,9 @@ class VentaController extends Controller
      */
     public function edit(Venta $venta)
     {
-        //
+         $proveedor = Proveedor::findOrFail($id);
+
+        return view('proveedor.edit',compact('proveedor'));
     }
 
     /**
@@ -69,7 +77,11 @@ class VentaController extends Controller
      */
     public function update(Request $request, Venta $venta)
     {
-        //
+        $proveedor = Proveedor::findOrFail($id);
+        $proveedor->razonSocial = $request->get('razonSocial');
+        $proveedor->update();
+
+        return redirect('proveedor');
     }
 
     /**
@@ -80,6 +92,9 @@ class VentaController extends Controller
      */
     public function destroy(Venta $venta)
     {
-        //
+         $proveedor = Proveedor::findOrFail($id);
+        $proveedor->delete();
+
+        return redirect('proveedor');
     }
 }
